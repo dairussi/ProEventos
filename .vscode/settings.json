@@ -1,0 +1,4 @@
+{
+  "dotnet.defaultSolution": "Back-end/ProEventos.sln",
+  "editor.formatOnSave": true
+}
