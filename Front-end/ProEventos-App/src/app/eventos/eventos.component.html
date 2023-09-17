@@ -1,16 +1,23 @@
 <h2>Eventos</h2>
 <hr>
-<form action="" class="form-inline">
-  <div class="form-group ">
-    <input type="text" class="form-control " placeholder="buscar">
-    <button class="btn btn-outline-success">Buscar</button>
+<div class="form-inline">
+  <div class="form-group">
+    <div class="d-inline-block col-8">
+      <input [(ngModel)]="filtroLista" type="text" class="form-control" placeholder="Buscar">
+    </div>
+    <div class="d-inline-block col-4">
+      <button class="btn btn-outline-success">Buscar</button>
+    </div>
   </div>
-</form>
+
+</div>
+<h3>Filtro: {{filtroLista}}</h3>
 <table class="table table-striped">
   <thead>
     <tr>
+      <th (click)="view()" type="button"><button type="button" class="btn btn-outline-dark btn-sm">{{viewItem ?
+          'Exibir' : 'Ocultar'}}</button></th>
       <th>#</th>
-      <th>Imagem</th>
       <th>Tema</th>
       <th>Local</th>
       <th>Data</th>
@@ -19,16 +26,27 @@
       <th>Opções</th>
     </tr>
   </thead>
-  <tbody>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+  <tbody *ngIf="eventos && eventos.length">
+    <tr *ngFor="let evento of eventosFiltrados">
+      <td><img [isAnimated]="true" [collapse]="viewItem" src="../../assets/Img/{{evento.imagemURL}}"
+          style="object-fit: cover; width: 100px; height: 60px;"></td>
+      <td>{{evento.eventoId}}</td>
+      <td>{{evento.tema}}</td>
+      <td>{{evento.local}}</td>
+      <td>{{evento.dataEvento}}</td>
+      <td>{{evento.qtdPessoas}}</td>
+      <td>{{evento.lote}}</td>
+      <td><button type="button" class="btn btn-primary btn-sm mr2">Editar</button>
+        <button type="button" class="btn btn-danger btn-sm">Excluir</button>
+      </td>
     </tr>
   </tbody>
+  <tfoot *ngIf="!eventos.length">
+    <tr>
+      <td colspan="8" class="text-center">
+        <h4>Nenhum evento encontrado</h4>
+      </td>
+    </tr>
+
+  </tfoot>
 </table>
